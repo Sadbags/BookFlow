@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% block title %}My Readlist{% endblock %}
+
+{% block content %}
+	<h1 class="text-4xl font-bold">My Readlist</h1>
+
+    {% if readlist_books %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">  {% for book in readlist_books %}
+                <div class="bg-white rounded-lg shadow-md p-4 flex">  <img src="{{ book.image.url }}" alt="{{ book.name }}" class="w-24 h-32 object-cover rounded-md mr-4">
+                    <div>
+                        <h2 class="text-lg font-semibold"><a href="{% url 'item:detail' book.id %}">{{ book.name }}</a></h2>
+                        <p class="text-gray-500">{{ book.author }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Your readlist is empty.</p>
+    {% endif %}
+{% endblock %}
