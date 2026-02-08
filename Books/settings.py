@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Books',
     'core',
     'item',
     'dashboard',
@@ -49,7 +50,7 @@ ROOT_URLCONF = 'Books.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'Books' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

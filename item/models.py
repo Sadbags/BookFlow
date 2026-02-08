@@ -48,6 +48,7 @@ class Item(models.Model):
     users_read = models.ManyToManyField(User, related_name="read_books", blank=True)
     # marcar si el user ya lo tiene en la lista de leer
     readlisted_by = models.ManyToManyField(User, related_name="readlist_books", blank=True)
+    google_id = models.CharField(max_length=50, blank=True, null=True, unique=True)
 
 # new
     def user_rating(self):
@@ -56,6 +57,9 @@ class Item(models.Model):
         if reviews.exists():
             return reviews.aggregate(Avg('rating'))['rating__avg']
         return 0
+
+    def is_local(self):
+        return self.price != 0
 
     def __str__(self):
         return self.name

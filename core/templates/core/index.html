@@ -2,6 +2,123 @@
 
 {% block title %}Welcome{% endblock %}
 
+{% block content %}
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+
+    <h2 class="m-12 text-2xl text-center">Favorite Books</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+        {% for item in items %}
+        <div class="bg-white shadow-lg rounded-xl overflow-hidden flex flex-col items-center">
+
+            {% if item.google_id %}
+                <a href="{% url 'google_book_detail' %}?id={{ item.google_id }}">
+            {% else %}
+                <a href="{% url 'item:detail' item.id %}">
+            {% endif %}
+
+                <!-- imagen -->
+                <div class="w-full max-w-md h-[350px] md:h-[300px] lg:h-[280px] p-2 flex items-center justify-center">
+
+                    {% if item.google_id %}
+                        <img src="{{ item.image }}"
+                             class="w-full h-full object-contain rounded-t-xl">
+                    {% else %}
+                        <img src="{{ item.image.url }}"
+                             class="w-full h-full object-contain rounded-t-xl">
+                    {% endif %}
+
+                </div>
+
+                <!-- informacionn -->
+                <div class="p-6 text-center">
+
+                    <h2 class="text-lg font-semibold">
+                        {% if item.google_id %}
+                            {{ item.name }}
+                        {% else %}
+                            {{ item.name }}
+                        {% endif %}
+                    </h2>
+
+                    <p class="text-gray-600">{{ item.author }}</p>
+
+                    {% if item.rating %}
+                        <p class="text-yellow-500 font-semibold">
+                            ⭐ {{ item.rating }}/5
+                        </p>
+                    {% endif %}
+
+                </div>
+
+            </a>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}
+
+
+
+{% comment %} {% extends 'core/base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class="m-12 text-2xl text-center">Favorite Books</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for item in items %}
+            <div class="bg-white shadow-lg rounded-xl overflow-hidden flex flex-col items-center">
+                {% if item.google_id %}
+                    <!-- Libros de Google Books: link al mismo template de detalle -->
+                    <a href="{% url 'google_book_detail' %}?id={{ item.google_id }}">
+                {% else %}
+                    <!-- Libros locales -->
+                    <a href="{% url 'item:detail' item.id %}">
+                {% endif %}
+
+                    <!-- Imagen centrada y sin cortar -->
+                    <div class="w-full max-w-md h-[350px] md:h-[300px] lg:h-[280px] p-2 flex items-center justify-center">
+                        <img src="{% if item.google_id %}{{ item.image }}{% else %}{{ item.image.url }}{% endif %}"
+                             class="w-full h-full object-contain rounded-t-xl">
+                    </div>
+
+                    <!-- Información del libro -->
+                    <div class="p-6 text-center">
+                        {% if item.google_id %}
+                            <h2 class="text-lg font-semibold">{{ item.title }}</h2>
+                            <p class="text-gray-600">{{ item.authors }}</p>
+                            <p class="text-gray-500 mt-1">{{ item.categories }}</p>
+                            {% if item.rating %}
+                                <p class="text-yellow-500 font-semibold">⭐ {{ item.rating }}/5</p>
+                            {% endif %}
+                        {% else %}
+                            <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+                            <p class="text-gray-600">{{ item.author }}</p>
+                            <p class="text-gray-700 mt-2 font-semibold">Price: {{ item.price }}</p>
+                            {% if item.rating %}
+                                <p class="text-yellow-500 font-semibold">⭐ {{ item.rating }}/5</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} {% endcomment %}
+
+
+{% comment %} {% extends 'core/base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
 {% block content%}
 	<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
 		<h2 class="m-12 text-2xl text-center">Favorite Books</h2>
@@ -12,7 +129,8 @@
 					<a href="{% url 'item:detail' item.id %}">
 						<!-- Imagen más grande sin cortes -->
 						<div class="w-full max-w-md h-[350px] md:h-[300px] lg:h-[280px] p-2 flex items-center justify-center">
-							<img src="{{ item.image.url }}" class="w-full h-full object-contain rounded-t-xl">
+							<img src="{% if item.google_id %}{{ item.image }}{% else %}{{ item.image.url }}{% endif %}"
+                                class="w-full h-full object-contain rounded-t-xl">
 						</div>
 
 						<!-- Información del libro -->
@@ -27,4 +145,4 @@
 			{% endfor %}
 		</div>
 	</div>
-{% endblock %}
+{% endblock %} {% endcomment %}

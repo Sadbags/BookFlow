@@ -1,8 +1,12 @@
 <!doctype html>
 <html>
+    {% load static %}
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="{% static 'images/bookflow.ico' %}">
 
 		<script src="https://cdn.tailwindcss.com"></script>
 		<title>{% block title %}{% endblock %} | BookFlow</title>
@@ -10,7 +14,14 @@
 	</head>
 	<body class="flex flex-col min-h-screen">
 		<nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
-			<a href="/" class="text-xl font-semibold">BookFlow</a>
+            <a href="/" class="text-xl font-semibold inline-flex items-center gap-2">
+                <img
+                    src="{% static 'images/bookflow.png' %}"
+                    alt="BookFlow logo"
+                    class="h-6 w-6"
+                >
+                BookFlow
+            </a>
 
 			<!-- Botón hamburguesa para pantallas pequeñas -->
 			<div class="block lg:hidden">
@@ -23,10 +34,9 @@
 			</div>
 
 			<!-- Enlaces del menú, se ocultarán en pantallas pequeñas -->
-			<div class="space-x-6 hidden lg:flex">
-				<a href="#" class="text-lg font-semibold hover:text-gray-500">Book Clubs</a>
-				<a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500">Browse</a>
-				<a href="#" class="text-lg font-semibold hover:text-gray-500">Recomendations</a>
+			<div class="space-x-4 hidden lg:flex">
+                <a href="#" class="px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-700">Book Clubs</a>
+                <a href="{% url 'item:items' %}" class="px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-700">Browse</a>
 
 				{% if request.user.is_authenticated %}
 					<a href="{% url 'item:readlist' %}" class="px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-700">Readlist</a>
@@ -45,9 +55,8 @@
 
 			<!-- Menú desplegable en pantallas pequeñas, inicialmente oculto -->
 			<div id="menu" class="lg:hidden w-full mt-4 space-y-4 hidden bg-white p-4 rounded-md shadow-md">
-				<a href="#" class="block text-lg font-semibold hover:text-gray-500">Book Clubs</a>
-				<a href="{% url 'item:items' %}" class="block text-lg font-semibold hover:text-gray-500">Browse</a>
-				<a href="#" class="block text-lg font-semibold hover:text-gray-500">Recomendations</a>
+				<a href="#" class="block px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-700">Book Clubs</a>
+				<a href="{% url 'item:items' %}" class="block px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-700">Browse</a>
 
 				{% if request.user.is_authenticated %}
 					<a href="{% url 'item:readlist' %}" class="block px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-gray-700">Readlist</a>

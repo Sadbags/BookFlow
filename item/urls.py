@@ -20,4 +20,12 @@ urlpatterns = [
     path('book/<int:book_id>/', views.detail, name='detail'),
     # ruta para el review de los libros
     path('<int:item_id>/review/', views.add_review, name='review'),
+    # ruta para el detalles de libros de google books
+    #path('google/', views.google_book_detail, name='google_book_detail'),
+    path('add_google_to_read/<str:google_id>/', views.add_google_to_read, name='add_google_to_read'),
+    path('add_google_to_readlist/<str:google_id>/', views.add_google_to_readlist, name='add_google_to_readlist'),
+    #ruta de dashboard reviews detail
+    path('dashboard/book/<int:item_id>/', views.dashboard_book_detail, name='dashboard_book_detail'),
+
+
 ]
